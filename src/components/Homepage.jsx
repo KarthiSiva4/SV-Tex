@@ -1,6 +1,14 @@
 import * as React from 'react';
+// import { useEffect, useState } from 'react';
+// import { collection, query, onSnapshot } from "firebase/firestore"
+// import { db } from './firebase';
 
 const Homepage = () => {
-  return <div> This is Home....</div>;
-};
+
+  return (
+    <div>
+      Hello........
+    </div>
+  )
+}
 export default Homepage;

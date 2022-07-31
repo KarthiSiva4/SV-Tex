@@ -10,7 +10,6 @@ export default function Footer() {
     width: '100%',
     position: 'fixed',
     bottom: 0,
-    width: '100%'
     }} component="footer" square variant="outlined">
       <Container maxWidth="lg">
         <Box
@@ -39,4 +38,3 @@ export default function Footer() {
     </Paper>
   );
 }
-export default Footer;

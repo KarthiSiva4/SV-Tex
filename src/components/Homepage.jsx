@@ -1,5 +1,6 @@
-export default function Homepage(){
-    return(
-        <div>This Homepage</div>
-    )
-}
+import * as React from 'react';
+
+const Homepage = () => {
+  return <div> This is Home....</div>;
+};
+export default Homepage;

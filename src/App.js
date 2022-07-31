@@ -1,11 +1,14 @@
+import React from 'react';
 import './App.css';
+import Layout from './components/Layout';
 import Homepage from './components/Homepage';
 
 function App() {
   return (
     <div className="App">
-      Going to create a Saree Business app....
-      <Homepage />
+      <Layout>
+        <Homepage />
+      </Layout>
     </div>
   );
 }

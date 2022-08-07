@@ -11,10 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import AdbIcon from '@mui/icons-material/Checkroom';
 
 // const pages = ['Products', 'Pricing', 'Contact Us'];
-const pages = [{menu:'Products',link:'/product'}, {menu:'Pricing', link:'/pricing'}, {menu:'Contact Us', link:'/contact'}];
+const pages = [{menu:'Products',link:'/product'}, {menu:'Gallery', link:'/gallery'}, {menu:'Contact Us', link:'/contact'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Header = () => {
@@ -56,7 +56,7 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            SVTex
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -89,8 +89,8 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.menu} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.link}</Typography>
+                <MenuItem key={page.link} onClick={handleCloseNavMenu} href={page.link}>
+                  <Typography textAlign="center">{page.menu}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -112,12 +112,12 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            SVTex
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button href={page.link}
-                key={page}
+                key={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >

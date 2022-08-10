@@ -4,7 +4,7 @@ import Layout from './components/Layout';
 import Homepage from './components/Homepage';
 import Contact from './components/Contact';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Gallery from './components/Gallery';
+import GalleryView from './components/GalleryView';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery" element={<GalleryView />} />
           <Route path="*" element={<Homepage />} />
         </Routes>
         </BrowserRouter>

@@ -1,32 +1,14 @@
-import React, { useState, useCallback, useEffect } from "react";
-// import { render } from "react-dom";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-// import { photos } from "./photos";
-
-import { makeStyles } from '@mui/styles';
-
-import { collection, query, onSnapshot } from "firebase/firestore"
-import { db } from './firebase';
 import Loader from './Loader'
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-
-/* const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-})); */
 
 export default function GalleryView() {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [files, setFiles] = useState([]);
+  const counter = useRef(0);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -37,20 +19,18 @@ export default function GalleryView() {
     }
 
     const loadImages = async () => {
+      counter.current += 1;
       const lists = await fetchImages();
       const url = await Promise.all(lists.map(a => getDownloadURL(a)));
-      console.log(url);
-      let urlObj =[];
-      url.map(u =>{
-        urlObj.push({
-          src : u,
-        width : 4,
-        height : 3
-        });
+      let urlObj = [];
+      url.map(u => {
+        urlObj.push({ src: u, width: 2, height: 2 });
       })
       setFiles(urlObj);
+      if (counter.current >= urlObj.length) {
+        return <Loader />;
+      }
     }
-    loadImages();
 
   }, []);
 
@@ -63,42 +43,27 @@ export default function GalleryView() {
     setCurrentImage(0);
     setViewerIsOpen(false);
   };
-  // const classes = useStyles();
   return (
     <div>
-    {files.length === 0 ? <Loader /> :
-    <div>
-      {/* <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div> */}
-
-      <Gallery photos={files} onClick={openLightbox} />
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel
-              currentIndex={currentImage}
-              views={files.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title
-              }))}
-            />
-          </Modal>
-        ) : null}
-      </ModalGateway>
-    </div>
-    }
+      {files.length === 0 ? <Loader /> :
+        <div>
+          {/* <Gallery photos={files} onClick={openLightbox} onLoad={loadImages()} /> */}
+          <ModalGateway>
+            {viewerIsOpen ? (
+              <Modal onClose={closeLightbox}>
+                <Carousel
+                  currentIndex={currentImage}
+                  views={files.map(x => ({
+                    ...x,
+                    srcset: x.srcSet,
+                    caption: x.title
+                  }))}
+                />
+              </Modal>
+            ) : null}
+          </ModalGateway>
+        </div>
+      }
     </div>
   );
 }

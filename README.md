@@ -8,6 +8,7 @@ In the project directory, you can run:
 
 ## Git commit and push command
 
+git add .
 git commit --no-verify -m "layout change"
 git push
 
